@@ -36,7 +36,7 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 WIDTH = 800
 HEIGHT = 600
 FONT_SIZE = 30
-alpha = 130
+alpha = 0
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -50,6 +50,7 @@ font = pygame.font.SysFont('IPAMincho', FONT_SIZE, bold=True)
 
 green_font = [font.render(char, True, (0, randrange(160, 256), 0))
               for char in symbol_font]
+
 lightgreen_font = [font.render(char, True, pygame.Color('lightgreen'))
                    for char in symbol_font]
 
@@ -62,6 +63,10 @@ while True:
 
     for symbol_column in symbol_columns:
         symbol_column.draw()
+
+    if not pygame.time.get_ticks() % 20 and alpha < 170:
+        alpha += 3
+        surface.set_alpha(alpha)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
